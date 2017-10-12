@@ -95,6 +95,7 @@ class multisite
 				{
 					define('e_HTTP',$m[0]);
 					define('e_SELF_OVERRIDE',true);
+					define('e_MULTISITE_MATCH', $site['match']);
 				//	define('THEME','bootstrap3/');
 					return $site['mysql']['database'];
 				}
