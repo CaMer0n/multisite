@@ -39,7 +39,7 @@ class multisite
 		if(empty($systemDir) || !file_exists($systemDir."multisite.json"))
 		{
 			echo (self::$debug === true) ? "<!-- SystemDir: ".$systemDir." -->" : null;
-			return $mySQLdefaultdb;
+			return array('database'=>$mySQLdefaultdb);
 		}
 
 
@@ -47,10 +47,10 @@ class multisite
 		{
 			$config = json_decode($data,true);
 
-			if($db = self::detect($config))
+			if($mysqlData = self::detect($config))
 			{
-				define('e_MULTISITE_IN_USE',$db);
-				return $db;
+				define('e_MULTISITE_IN_USE',$mysqlData['database']);
+				return $mysqlData;
 			}
 
 			if(self::$debug === true)
@@ -65,7 +65,7 @@ class multisite
 
 		}
 
-		return $mySQLdefaultdb;
+		return array('database'=>$mySQLdefaultdb);
 
 	}
 
@@ -85,7 +85,7 @@ class multisite
 
 			if($site['haystack'] === 'host' && ($_SERVER['HTTP_HOST'] === $site['match']))
 			{
-				return $site['mysql']['database'];
+				return $site['mysql'];
 			}
 			elseif($site['haystack'] === 'url')
 			{
@@ -97,7 +97,7 @@ class multisite
 					define('e_SELF_OVERRIDE',true);
 					define('e_MULTISITE_MATCH', $site['match']);
 				//	define('THEME','bootstrap3/');
-					return $site['mysql']['database'];
+					return $site['mysql'];
 				}
 
 				if(self::$debug === true)
@@ -120,6 +120,12 @@ class multisite
 
 }
 
+$multiMySQL = multisite::load($mySQLdefaultdb, $SYSTEM_DIRECTORY);
+$mySQLdefaultdb = $multiMySQL['database'];
 
-$mySQLdefaultdb = multisite::load($mySQLdefaultdb, $SYSTEM_DIRECTORY);
+if(!empty($multiMySQL['prefix']))
+{
+	$mySQLprefix = $multiMySQL['prefix'];
+}
 
+unset($multiMySQL);

@@ -348,11 +348,12 @@ class multisite_ui extends e_admin_ui
 
 			$text = $frm->open('multi','post');
 			$text .= "<table class='table table-striped table-bordered'>
-				<tr><th>Name</th><th>Search</th><th>Match</th><th>Database</th><th class='center'>In Use</th><th class='center'>Active</th></tr>";
+				<tr><th>Name</th><th>Search</th><th>Match</th><th colspan='2'>Database</th><th class='center'>In Use</th><th class='center'>Active</th></tr>";
 
 			for ($i = 0; $i <= 10; $i++)
 			{
 				$database = !empty($curval[$i]['mysql']['database']) ? $curval[$i]['mysql']['database'] : '';
+				$prefix = !empty($curval[$i]['mysql']['prefix']) ? $curval[$i]['mysql']['prefix'] : '';
 				$active = !empty($curval[$i]['active']) ? $curval[$i]['active'] : 0;
 				$inuse = $database == e_MULTISITE_IN_USE ? ADMIN_TRUE_ICON : "";
 
@@ -361,6 +362,7 @@ class multisite_ui extends e_admin_ui
 					<td>".$frm->text('ms['.$i.'][name]',$curval[$i]['name'], 80,'size=block-level')."</td>
 					<td style='width:200px'>".$frm->select('ms['.$i.'][haystack]',$options, $curval[$i]['haystack'], 'size=block-level&default=blank' )."</td>
 					<td>".$frm->text('ms['.$i.'][match]',$curval[$i]['match'], 80,array('size'=>'block-level', 'pattern'=>''))."<div class='field-help'>eg. sub.mydomain.com or mydomain.com or regex to match sub-directory</td>
+					<td style='width:100px'>".$frm->text('ms['.$i.'][mysql][prefix]',  $prefix, 25, 'size=block-level&placeholder=e107_' )."<div class='field-help'>Database Prefix. Leave blank to use 'e107_'</td>
 					<td style='width:200px'>".$frm->select('ms['.$i.'][mysql][database]',$dbs, $database, 'size=block-level&default=blank' )."</td>
 					<td class='center' style='width:100px'>".$inuse."</td>
 					<td class='center' style='width:10%'>".$frm->radio_switch('ms['.$i.'][active]',$active, strtoupper(LAN_ON), strtoupper(LAN_OFF),array('switch'=>'small'))."</td>
