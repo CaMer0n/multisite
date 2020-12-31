@@ -358,9 +358,9 @@ class multisite_ui extends e_admin_ui
 
 			    $text .= "<tr>
 
-					<td>".$frm->text('ms['.$i.'][name]',$curval[$i]['name'], 80,'size=block-level')."</td>
-					<td style='width:200px'>".$frm->select('ms['.$i.'][haystack]',$options, $curval[$i]['haystack'], 'size=block-level&default=blank' )."</td>
-					<td>".$frm->text('ms['.$i.'][match]',$curval[$i]['match'], 80,array('size'=>'block-level', 'pattern'=>''))."<div class='field-help'>eg. sub.mydomain.com or mydomain.com or regex to match sub-directory</td>
+					<td>".$frm->text('ms['.$i.'][name]', varset($curval[$i]['name']), 80,'size=block-level')."</td>
+					<td style='width:200px'>".$frm->select('ms['.$i.'][haystack]',$options, varset($curval[$i]['haystack']), 'size=block-level&default=blank' )."</td>
+					<td>".$frm->text('ms['.$i.'][match]', varset($curval[$i]['match']), 80,array('size'=>'block-level', 'pattern'=>''))."<div class='field-help'>eg. sub.mydomain.com or mydomain.com or regex to match sub-directory</td>
 					<td style='width:100px'>".$frm->text('ms['.$i.'][mysql][prefix]',  $prefix, 25, 'size=block-level&placeholder=e107_' )."<div class='field-help'>Database Prefix. Leave blank to use 'e107_'</td>
 					<td style='width:200px'>".$frm->select('ms['.$i.'][mysql][database]',$dbs, $database, 'size=block-level&default=blank' )."</td>
 					<td class='center' style='width:100px'>".$inuse."</td>
