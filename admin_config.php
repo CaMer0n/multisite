@@ -51,11 +51,10 @@ class multisite_adminArea extends e_admin_dispatcher
 
 	function init()
 	{
-		if($tmp = file_get_contents(e_MULTISITE_CONFIG))
+
+		if(file_exists(e_MULTISITE_CONFIG) && $tmp = file_get_contents(e_MULTISITE_CONFIG))
 		{
 			self::$multisiteData = e107::unserialize($tmp);
-
-
 
 			$c = 0;
 
@@ -193,7 +192,7 @@ class multisite_ui extends e_admin_ui
 
 			}
 
-			e107::getDebug()->log(e_MULTISITE_IN_USE);
+			e107::getDebug()->log(defset('e_MULTISITE_IN_USE'));
 
 			$data = file_get_contents(e_BASE."e107_config.php");
 
@@ -355,7 +354,7 @@ class multisite_ui extends e_admin_ui
 				$database = !empty($curval[$i]['mysql']['database']) ? $curval[$i]['mysql']['database'] : '';
 				$prefix = !empty($curval[$i]['mysql']['prefix']) ? $curval[$i]['mysql']['prefix'] : '';
 				$active = !empty($curval[$i]['active']) ? $curval[$i]['active'] : 0;
-				$inuse = $database == e_MULTISITE_IN_USE ? ADMIN_TRUE_ICON : "";
+				$inuse = (!empty($database) && $database === defset('e_MULTISITE_IN_USE')) ? ADMIN_TRUE_ICON : "";
 
 			    $text .= "<tr>
 
@@ -445,4 +444,3 @@ e107::getAdminUI()->runPage();
 require_once(e_ADMIN."footer.php");
 exit;
 
-?>
