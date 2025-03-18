@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e107Plugin name="Multiple Sites" lan="" version="1.0" date="2017-02-08" compatibility="2.0" installRequired="false" >
+<e107Plugin name="Multiple Sites" lan="" version="2.0" date="2025-03-18" compatibility="2.0" installRequired="false" >
 	<author name="CaMer0n" url="https://e107.org" />
 	<summary lan="">Use one e107 installation to drive multiple websites</summary>
 	<description lan="">Allows for easy switching of e107 databases based on domain or url.</description>
